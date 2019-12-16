@@ -42,6 +42,11 @@ void MainWindow::handleWin(const int signal)
     }
 }
 
+void MainWindow::connectNewBoard()
+{
+    view->setBoard(algorithm->board());
+}
+
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {

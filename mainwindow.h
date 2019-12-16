@@ -23,6 +23,9 @@ signals:
     void keypress(const QString &);
 public slots:
     void handleWin(const int signal);
+    void connectNewBoard();
+protected:
+    void keyPressEvent(QKeyEvent *event);
 private:
     Ui::MainWindow *ui;
     SudokuAlgorithm *algorithm;
