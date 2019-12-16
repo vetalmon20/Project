@@ -42,6 +42,22 @@ void SudokuBoard::setQuestionIndex(int index)
 {
     questionIndex.push_back(index);
 }
+
+void SudokuBoard::changeData(int num)
+{
+    if(customMode) {
+        setCustomData(selectedPoint->x(), selectedPoint->y(), num);
+        return;
+    }
+    int index = selectedPoint->x()*9 + selectedPoint->y();
+    bool canChange=false;
+    for(int i=0; i<getQuestionIndex().size(); ++i) {
+        if(index == getQuestionIndex()[i]) canChange=true;
+    }
+    if(canChange) setInternalData(selectedPoint->x(), selectedPoint->y(), num);
+    else return;
+}
+
 void SudokuBoard::setSelectedPoint(int x, int y)
 {
     selectedPoint->setX(x);
@@ -73,5 +89,22 @@ void SudokuBoard::setCustomData(int row, int column, int value)
     b_data[index] = value;
     emit dataChanged();
 }
-rdReset(level);
+
+void SudokuBoard::initBoard()
+{
+    b_data.fill(0, sudokuSize);
+
+}
+
+void SudokuBoard::solveIt()
+{
+    for(int i=0; i<sudokusize(); i++)
+        b_data[i] = map[i];
+    conflictIndex = questionIndex;
+    emit solveTheMap();
+}
+
+void SudokuBoard::startNewGame(const int level)
+{
+    emit boardReset(level);
 }

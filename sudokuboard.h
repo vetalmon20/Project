@@ -15,12 +15,26 @@ public:
     int data(int row, int column) const;
     int sudokusize() const {return sudokuSize;}
     void setData(int row, int column, int value);
+    QVector<int> boardData() const;
+    QVector<int> getMap() const;
+    void setMapData(int value);
     QVector<int> getQuestionIndex() const{return questionIndex;}
     void setQuestionIndex(int index);
     void changeData(int num);
     void setSelectedPoint(int x, int y);
     QPoint *getSelectedPoint() const{return selectedPoint;}
     QVector<int> getConflictIndex() const {return conflictIndex;}
+    void setConflictIndex(QVector<int> &);
+    void setCustomMode(bool flag){customMode=flag;}
+    void customFinish(bool flag);
+    void solveIt();
+
+
+protected:
+    void setInternalData(int row, int column, int value);
+    void setCustomData(int row, int column, int value);
+    void initBoard();
+
 
 signals:
     void dataChanged();
@@ -32,6 +46,8 @@ public slots:
 private:
     const int b_row=9, b_column=9, sudokuSize=81;
     QVector<int> b_data;
+    QVector<int> map;
+    QVector<int> questionIndex;
     QVector<int> solution;
     QVector<int> conflictIndex;
     QPoint *selectedPoint = new QPoint(-1, -1);
